@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>تعبئة الكرش - الملف الشخصي</title>
+    <!-- نفس الخط من index -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #FCF9EC;
+            --text: #1e2a41;
+            --primary-1: #B0F4E6;
+            --primary-2: #67EACA;
+            --primary-3: #12D3CF;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --border-light: rgba(18, 211, 207, 0.3);
+            --error: #e53e3e;
+            --success: #10B981;
+        }
+
+        body {
+            font-family: 'Caveat', cursive;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            padding: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* نفس الخلفية من index */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(176, 244, 230, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(103, 234, 202, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 340px;
+            position: relative;
+            z-index: 10;
+            animation: fadeScale 0.5s ease-out;
+        }
+
+        @keyframes fadeScale {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* الهيدر - مصغر */
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px;
+            padding: 4px 10px;
+            box-shadow: 0 4px 12px -4px rgba(18, 211, 207, 0.2);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            font-family: 'Caveat', cursive;
+            color: var(--text);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(18, 211, 207, 0.1);
+        }
+
+        #pageTitle {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* البطاقة الرئيسية - مصغرة */
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 36px;
+            padding: 16px 14px;
+            box-shadow: 0 15px 30px -10px rgba(18, 211, 207, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* عناصر زخرفية مصغرة */
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-1) 0%, var(--primary-2) 100%);
+            border-radius: 50%;
+            top: -30px;
+            left: -30px;
+            z-index: -1;
+            opacity: 0.15;
+            filter: blur(30px);
+        }
+
+        .profile-card::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-2) 0%, var(--primary-3) 100%);
+            border-radius: 50%;
+            bottom: -40px;
+            right: -30px;
+            z-index: -1;
+            opacity: 0.15;
+            filter: blur(40px);
+        }
+
+        /* الصورة الشخصية - مصغرة */
+        .profile-img-wrapper {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 8px;
+        }
+
+        .profile-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 20px -5px rgba(18, 211, 207, 0.3);
+            object-fit: cover;
+            background: white;
+        }
+
+        /* أزرار تعديل الصورة - مصغرة */
+        .photo-edit-buttons {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            display: flex;
+            gap: 2px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .profile-img-wrapper:hover .photo-edit-buttons {
+            opacity: 1;
+        }
+
+        .photo-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .photo-btn.remove {
+            color: var(--error);
+            border-color: var(--error);
+        }
+
+        /* الاسم - مصغر */
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        /* البايو - مصغر */
+        .bio-text {
+            font-size: 0.8rem;
+            color: #4a5568;
+            margin-bottom: 10px;
+            line-height: 1.3;
+            white-space: pre-wrap;
+            text-align: center;
+            padding: 0 5px;
+            min-height: 35px;
+        }
+
+        /* خط فاصل - مصغر */
+        .divider {
+            width: 40px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, var(--primary-2), var(--primary-3), var(--primary-2), transparent);
+            margin: 8px auto;
+            opacity: 0.5;
+        }
+
+        /* قسم التعديل - مصغر */
+        #editSection {
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        .edit-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 2px;
+            padding-right: 5px;
+        }
+
+        /* حقول الإدخال - مصغرة */
+        #editNameInput,
+        #editBioInput {
+            width: 100%;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-family: 'Caveat', cursive;
+            color: var(--text);
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(18, 211, 207, 0.05);
+            margin-bottom: 6px;
+        }
+
+        #editBioInput {
+            border-radius: 20px;
+            min-height: 45px;
+            resize: none;
+        }
+
+        /* رسالة الخطأ - مصغرة */
+        .error-message {
+            color: var(--error);
+            font-size: 0.6rem;
+            margin: 2px 0 4px;
+            padding-right: 8px;
+            display: none;
+        }
+
+        /* زر الحفظ - مصغر */
+        .save-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            font-family: 'Caveat', cursive;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 12px rgba(18, 211, 207, 0.15);
+            margin-top: 8px;
+        }
+
+        /* حالة التحميل - مصغرة */
+        .loading-state {
+            display: none;
+            text-align: center;
+            color: var(--primary-3);
+            font-size: 0.65rem;
+            margin: 4px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* منع السكرول */
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-nav">
+            <a href="main.html" class="back-btn">→ العودة</a>
+            <span id="pageTitle">ملف الاكيل</span>
+        </div>
+
+        <div class="profile-card">
+            <!-- الصورة الشخصية مع أزرار التعديل -->
+            <div class="profile-img-wrapper">
+                <img id="pImg" src="img.png" class="profile-img">
+                <div class="photo-edit-buttons" id="photoEditButtons" style="display: none;">
+                    <label for="photoUpload" class="photo-btn" title="تغيير الصورة">✎</label>
+                    <button class="photo-btn remove" id="removePhotoBtn" title="حذف الصورة">✕</button>
+                </div>
+                <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+            </div>
+
+            <h2 id="pName">جاري التحميل...</h2>
+            <div id="pBio" class="bio-text"></div>
+
+            <div class="divider"></div>
+
+            <!-- قسم التعديل (يظهر فقط للمالك) -->
+            <div id="editSection">
+                <label class="edit-label">اسم الاكيل</label>
+                <input type="text" id="editNameInput" placeholder="أدخل اسمك" maxlength="20">
+                <div class="error-message" id="nameError">يُسمح فقط بالحروف والمسافات</div>
+
+                <label class="edit-label">حكمة الكرش</label>
+                <textarea id="editBioInput" placeholder="اكتب حكمة غذائية تؤمن بها..."></textarea>
+
+                <button id="saveBtn" class="save-btn">حفظ التعديلات</button>
+                <div class="loading-state" id="loadingState">جاري الحفظ...</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyAlPKj6ecmEHHsipsD8YVD2Aq1hdiO9fpM", 
+            authDomain: "nexivo-a3ae4.firebaseapp.com", 
+            databaseURL: "https://nexivo-a3ae4-default-rtdb.europe-west1.firebasedatabase.app", 
+            projectId: "nexivo-a3ae4" 
+        };
+        
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(); 
+        const db = getDatabase();
+
+        // قراءة الـ UID من الرابط
+        const urlParams = new URLSearchParams(window.location.search);
+        let targetUid = urlParams.get('uid');
+
+        let currentUserData = null;
+        let originalPhoto = null;
+
+        // دالة التحقق من صحة الاسم (حروف ومسافات فقط)
+        function isValidName(name) {
+            const nameRegex = /^[\u0600-\u06FF\s]+$/; // حروف عربية ومسافات فقط
+            return nameRegex.test(name);
+        }
+
+        // معالجة الصورة
+        async function processToWebP(file) {
+            return new Promise((resolve, reject) => {
+                if (file.size > 5 * 1024 * 1024) {
+                    reject("حجم الصورة كبير جداً");
+                    return;
+                }
+
+                const reader = new FileReader(); 
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const img = new Image(); 
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas'); 
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = 150; 
+                        canvas.height = 150; 
+                        ctx.drawImage(img, 0, 0, 150, 150);
+                        resolve(canvas.toDataURL('image/webp', 0.7)); 
+                    };
+                    img.onerror = () => reject("فشل تحميل الصورة");
+                };
+                reader.onerror = () => reject("فشل قراءة الملف");
+            });
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) { 
+                window.location.href = "index.html"; 
+                return; 
+            }
+            
+            if (!targetUid) targetUid = user.uid;
+
+            try {
+                const snapshot = await get(ref(db, 'users/' + targetUid));
+                if (snapshot.exists()) {
+                    currentUserData = snapshot.val();
+                    originalPhoto = currentUserData.photo || "img.png";
+                    
+                    document.getElementById('pName').innerText = currentUserData.username || "بلا اسم";
+                    document.getElementById('pBio').innerText = currentUserData.bio || "لم يكتب حكمة غذائية بعد...";
+                    document.getElementById('pImg').src = originalPhoto;
+
+                    // إذا كان هذا بروفايل المستخدم نفسه
+                    if (targetUid === user.uid) {
+                        document.getElementById('pageTitle').innerText = "ملفي الشخصي";
+                        document.getElementById('editSection').style.display = 'block';
+                        document.getElementById('photoEditButtons').style.display = 'flex';
+                        document.getElementById('editNameInput').value = currentUserData.username || "";
+                        document.getElementById('editBioInput').value = currentUserData.bio || "";
+                    }
+                } else {
+                    document.getElementById('pName').innerText = "حساب غير موجود!";
+                }
+            } catch (error) {
+                console.error("Error", error);
+            }
+        });
+
+        // معالج تغيير الصورة
+        document.getElementById('photoUpload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const loadingState = document.getElementById('loadingState');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            loadingState.style.display = 'block';
+            saveBtn.disabled = true;
+
+            try {
+                const processedImage = await processToWebP(file);
+                document.getElementById('pImg').src = processedImage;
+                originalPhoto = processedImage;
+                
+                await update(ref(db, 'users/' + auth.currentUser.uid), { 
+                    photo: processedImage 
+                });
+                
+                loadingState.textContent = "تم تحديث الصورة!";
+                setTimeout(() => {
+                    loadingState.style.display = 'none';
+                    loadingState.textContent = "جاري الحفظ...";
+                }, 1000);
+            } catch (error) {
+                alert(error);
+            }
+            
+            saveBtn.disabled = false;
+        });
+
+        // معالج حذف الصورة
+        document.getElementById('removePhotoBtn').addEventListener('click', async () => {
+            if (confirm('هل أنت متأكد من حذف الصورة؟')) {
+                const loadingState = document.getElementById('loadingState');
+                const saveBtn = document.getElementById('saveBtn');
+                
+                loadingState.style.display = 'block';
+                saveBtn.disabled = true;
+
+                try {
+                    document.getElementById('pImg').src = "img.png";
+                    originalPhoto = "img.png";
+                    
+                    await update(ref(db, 'users/' + auth.currentUser.uid), { 
+                        photo: "img.png" 
+                    });
+                    
+                    loadingState.textContent = "تم حذف الصورة!";
+                    setTimeout(() => {
+                        loadingState.style.display = 'none';
+                        loadingState.textContent = "جاري الحفظ...";
+                    }, 1000);
+                } catch (error) {
+                    alert("حدث خطأ");
+                }
+                
+                saveBtn.disabled = false;
+            }
+        });
+
+        // حفظ التعديلات (الاسم والباييو)
+        document.getElementById('saveBtn').onclick = async () => {
+            const newName = document.getElementById('editNameInput').value.trim();
+            const newBio = document.getElementById('editBioInput').value.trim();
+            const nameError = document.getElementById('nameError');
+            
+            // التحقق من صحة الاسم
+            if (!newName) {
+                nameError.textContent = "الاسم لا يمكن أن يكون فارغاً";
+                nameError.style.display = 'block';
+                return;
+            }
+            
+            if (!isValidName(newName)) {
+                nameError.textContent = "يُسمح فقط بالحروف العربية والمسافات";
+                nameError.style.display = 'block';
+                return;
+            }
+            
+            nameError.style.display = 'none';
+            
+            const loadingState = document.getElementById('loadingState');
+            const saveBtn = document.getElementById('saveBtn');
+            
+            loadingState.style.display = 'block';
+            saveBtn.disabled = true;
+
+            try {
+                const updates = {
+                    username: newName,
+                    bio: newBio
+                };
+                
+                await update(ref(db, 'users/' + auth.currentUser.uid), updates);
+                
+                // تحديث العرض
+                document.getElementById('pName').innerText = newName;
+                document.getElementById('pBio').innerText = newBio || "لم يكتب حكمة غذائية بعد...";
+                
+                loadingState.textContent = "تم الحفظ بنجاح!";
+                setTimeout(() => {
+                    loadingState.style.display = 'none';
+                    loadingState.textContent = "جاري الحفظ...";
+                }, 1000);
+            } catch (error) {
+                alert("حدث خطأ أثناء التحديث.");
+                loadingState.style.display = 'none';
+            }
+            
+            saveBtn.disabled = false;
+        };
+    </script>
+</body>
+</html>

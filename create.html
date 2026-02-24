@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>تعبئة الكرش - إنشاء الحساب</title>
+    <!-- نفس الخطوط من index -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Caveat', cursive;
+            background: #FCF9EC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 12px;
+            color: #1e2a41;
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+        }
+
+        /* نفس الخلفية من index */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(176, 244, 230, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(103, 234, 202, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 360px;
+            position: relative;
+            z-index: 10;
+            animation: fadeScale 0.5s ease-out;
+        }
+
+        @keyframes fadeScale {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* البطاقة الرئيسية - نفس تصميم index */
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 40px;
+            padding: 20px 18px;
+            box-shadow: 0 20px 40px -12px rgba(18, 211, 207, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* نفس العناصر الزخرفية من index - مصغرة */
+        .card::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #B0F4E6 0%, #67EACA 100%);
+            border-radius: 50%;
+            top: -40px;
+            left: -40px;
+            z-index: -1;
+            opacity: 0.2;
+            filter: blur(40px);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #67EACA 0%, #12D3CF 100%);
+            border-radius: 50%;
+            bottom: -50px;
+            right: -30px;
+            z-index: -1;
+            opacity: 0.2;
+            filter: blur(50px);
+        }
+
+        /* الشعار - مصغر */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: 0 10px 20px -8px rgba(18, 211, 207, 0.3);
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .logo-fallback {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #B0F4E6, #67EACA);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #1e2a41;
+        }
+
+        /* العنوان - مصغر */
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            color: #1e2a41;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            font-family: 'Caveat', cursive;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, #12D3CF, #67EACA, #12D3CF, transparent);
+            border-radius: 2px;
+        }
+
+        /* حقول الإدخال - مصغرة */
+        .input-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1e2a41;
+            margin-bottom: 4px;
+            padding-right: 8px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(18, 211, 207, 0.3);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-family: 'Caveat', cursive;
+            color: #1e2a41;
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(18, 211, 207, 0.05);
+        }
+
+        textarea {
+            border-radius: 20px;
+            resize: none;
+            height: 50px;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #12D3CF;
+            box-shadow: 0 6px 20px rgba(18, 211, 207, 0.15);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="text"]::placeholder,
+        textarea::placeholder {
+            color: #9aa6b5;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            font-weight: 300;
+        }
+
+        /* حقل رفع الصورة - مصغر */
+        .file-input-wrapper {
+            position: relative;
+            margin-bottom: 4px;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(18, 211, 207, 0.3);
+            border-radius: 30px;
+            font-family: 'Caveat', cursive;
+            font-size: 0.8rem;
+            color: #1e2a41;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(18, 211, 207, 0.05);
+        }
+
+        input[type="file"]::-webkit-file-upload-button {
+            background: linear-gradient(135deg, #B0F4E6, #67EACA);
+            border: none;
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-left: 8px;
+            color: #1e2a41;
+            font-family: 'Caveat', cursive;
+            font-size: 0.75rem;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* خط فاصل - مصغر */
+        .divider {
+            width: 30px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, #67EACA, #12D3CF, #67EACA, transparent);
+            margin: 12px auto 8px;
+            opacity: 0.5;
+        }
+
+        /* زر الحفظ - مصغر */
+        .button-wrapper {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        #saveBtn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #1e2a41;
+            border: 1px solid rgba(18, 211, 207, 0.4);
+            border-radius: 40px;
+            padding: 10px 16px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: 'Caveat', cursive;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(18, 211, 207, 0.15);
+        }
+
+        #saveBtn:hover {
+            background: rgba(176, 244, 230, 0.7);
+            border-color: #12D3CF;
+            box-shadow: 0 6px 20px rgba(18, 211, 207, 0.25);
+            transform: translateY(-1px);
+        }
+
+        #saveBtn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(18, 211, 207, 0.2);
+        }
+
+        /* حالة التحميل - مصغرة */
+        .loading-state {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            color: #12D3CF;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            animation: pulse 1.5s infinite;
+            height: 20px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* رسالة الخطأ */
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.7rem;
+            margin-top: 4px;
+            padding-right: 8px;
+            display: none;
+        }
+
+        /* دعم الشاشات الصغيرة */
+        @media (max-width: 360px) {
+            .card {
+                padding: 16px 14px;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+            }
+            
+            .logo {
+                width: 36px;
+                height: 36px;
+            }
+            
+            input[type="text"],
+            textarea,
+            input[type="file"] {
+                padding: 6px 12px;
+            }
+        }
+
+        /* منع السكرول تماماً */
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- الشعار -->
+            <div class="logo-wrapper">
+                <img src="img.png" alt="شعار" class="logo" onerror="this.style.display='none'; document.querySelector('.logo-fallback').style.display='flex';">
+                <div class="logo-fallback">◉</div>
+            </div>
+
+            <!-- العنوان -->
+            <h2>أكمل بيانات الكرش</h2>
+
+            <!-- حقول الإدخال -->
+            <div class="input-group">
+                <label>اسم الاكيل</label>
+                <input type="text" id="username" placeholder="مثلاً: ملك الشاورما" maxlength="20">
+            </div>
+
+            <div class="input-group">
+                <label>حكمة الكرش</label>
+                <textarea id="bio" placeholder="اكتب حكمة غذائية تؤمن بها..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>صورة الحساب</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="userImg" accept="image/*">
+                </div>
+                <div class="error-message" id="fileError"></div>
+            </div>
+
+            <!-- خط فاصل -->
+            <div class="divider"></div>
+
+            <!-- زر الحفظ -->
+            <div class="button-wrapper">
+                <button id="saveBtn">
+                    ابدأ التعبئة!
+                </button>
+            </div>
+
+            <!-- حالة التحميل -->
+            <div class="loading-state" id="loadingState" style="display: none;">
+                جاري تجهيز الكرش...
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyAlPKj6ecmEHHsipsD8YVD2Aq1hdiO9fpM", 
+            authDomain: "nexivo-a3ae4.firebaseapp.com", 
+            databaseURL: "https://nexivo-a3ae4-default-rtdb.europe-west1.firebasedatabase.app", 
+            projectId: "nexivo-a3ae4" 
+        };
+        
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(); 
+        const db = getDatabase();
+
+        const loadingState = document.getElementById('loadingState');
+        const saveBtn = document.getElementById('saveBtn');
+        const fileError = document.getElementById('fileError');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "index.html";
+            } else {
+                try {
+                    const snap = await get(ref(db, 'users/' + user.uid));
+                    if (snap.exists()) {
+                        window.location.href = "main.html";
+                    }
+                } catch (error) {
+                    console.error("خطأ في التحقق من المستخدم:", error);
+                }
+            }
+        });
+
+        async function processToWebP(file) {
+            return new Promise((resolve, reject) => {
+                if (file.size > 5 * 1024 * 1024) {
+                    reject("حجم الصورة كبير جداً (الحد الأقصى 5 ميجابايت)");
+                    return;
+                }
+
+                const reader = new FileReader(); 
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const img = new Image(); 
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas'); 
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = 150; 
+                        canvas.height = 150; 
+                        ctx.drawImage(img, 0, 0, 150, 150);
+                        resolve(canvas.toDataURL('image/webp', 0.7)); 
+                    };
+                    img.onerror = () => reject("فشل تحميل الصورة");
+                };
+                reader.onerror = () => reject("فشل قراءة الملف");
+            });
+        }
+
+        saveBtn.onclick = async () => {
+            const name = document.getElementById('username').value.trim();
+            const bio = document.getElementById('bio').value.trim();
+            const file = document.getElementById('userImg').files[0];
+            
+            if (!name) {
+                alert("من فضلك اختر اسم مستخدم أولاً");
+                return;
+            }
+
+            // إظهار حالة التحميل
+            saveBtn.disabled = true;
+            loadingState.style.display = 'flex';
+            fileError.style.display = 'none';
+            
+            let finalImg = "img.png";
+            
+            if (file) {
+                try {
+                    finalImg = await processToWebP(file);
+                } catch (error) {
+                    fileError.textContent = error;
+                    fileError.style.display = 'block';
+                    saveBtn.disabled = false;
+                    loadingState.style.display = 'none';
+                    return;
+                }
+            }
+
+            try {
+                await set(ref(db, 'users/' + auth.currentUser.uid), { 
+                    username: name, 
+                    bio: bio || "", 
+                    photo: finalImg 
+                });
+                window.location.href = "main.html";
+            } catch (error) {
+                console.error("خطأ في الحفظ:", error);
+                alert("حدث خطأ في حفظ البيانات");
+                saveBtn.disabled = false;
+                loadingState.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>تعبئة الكرش</title>
+    <!-- خط يدوي رائع -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@400..700&family=Marck+Script&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Caveat', cursive;
+            background: #FCF9EC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            color: #1e2a41;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            width: 100%;
+            max-width: 340px;
+            position: relative;
+        }
+
+        /* عناصر زخرفية خلفية */
+        .content::before {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #B0F4E6 0%, #67EACA 100%);
+            border-radius: 50%;
+            top: -60px;
+            left: -60px;
+            z-index: -1;
+            opacity: 0.15;
+            filter: blur(60px);
+        }
+
+        .content::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #67EACA 0%, #12D3CF 100%);
+            border-radius: 50%;
+            bottom: -80px;
+            right: -60px;
+            z-index: -1;
+            opacity: 0.15;
+            filter: blur(60px);
+        }
+
+        /* الشعار */
+        .logo-wrapper {
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 68px;
+            height: 68px;
+            background: linear-gradient(135deg, #B0F4E6, #67EACA);
+            border-radius: 24px;
+            top: -4px;
+            right: -4px;
+            z-index: -1;
+            opacity: 0.4;
+            filter: blur(8px);
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px -10px rgba(18, 211, 207, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        .logo-fallback {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #B0F4E6, #67EACA);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-family: 'Caveat', cursive;
+            color: #1e2a41;
+            box-shadow: 0 15px 30px -10px rgba(18, 211, 207, 0.2);
+        }
+
+        /* العنوان - تم إزالته بالكامل */
+        .title {
+            display: none;
+        }
+
+        /* الرسالة */
+        .message-container {
+            width: 100%;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .message {
+            font-size: 1.8rem; /* أصغر قليلاً من 2rem */
+            font-weight: 400;
+            text-align: center;
+            color: #1e2a41;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            max-width: 300px;
+            margin: 0 auto;
+            font-family: 'Caveat', cursive;
+        }
+
+        .message span {
+            display: block;
+            font-size: 2rem; /* أصغر قليلاً من 2.2rem */
+            font-weight: 400;
+            color: #12D3CF;
+            margin-top: 4px;
+            text-shadow: 0 2px 10px rgba(18, 211, 207, 0.2);
+            font-family: 'Caveat', cursive;
+        }
+
+        /* خط فاصل أنيق */
+        .divider {
+            width: 40px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, #67EACA, #12D3CF, #67EACA, transparent);
+            margin: 16px 0 8px;
+            opacity: 0.6;
+        }
+
+        /* زر الدخول */
+        .button-wrapper {
+            width: 100%;
+            margin-top: 24px;
+            position: relative;
+        }
+
+        #loginBtn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #1e2a41;
+            border: 1px solid rgba(18, 211, 207, 0.3);
+            border-radius: 60px;
+            padding: 16px 24px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            font-family: 'Caveat', cursive;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+            box-shadow: 0 4px 20px rgba(18, 211, 207, 0.1);
+        }
+
+        #loginBtn:hover {
+            background: rgba(176, 244, 230, 0.7);
+            border-color: #12D3CF;
+            box-shadow: 0 8px 30px rgba(18, 211, 207, 0.2);
+            transform: translateY(-2px);
+        }
+
+        #loginBtn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 15px rgba(18, 211, 207, 0.15);
+        }
+
+        .google-icon {
+            width: 18px;
+            height: 18px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%231e2a41' d='M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z' /%3E%3C/svg%3E");
+            background-size: contain;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        #loginBtn:hover .google-icon {
+            opacity: 1;
+        }
+
+        /* حالة التحميل */
+        .status-container {
+            width: 100%;
+            text-align: center;
+            height: 24px;
+            margin-top: 8px;
+        }
+
+        .loading-text {
+            display: none;
+            color: #12D3CF;
+            font-size: 0.8rem;
+            font-weight: 400;
+            padding: 8px;
+            animation: subtlePulse 2s infinite ease-in-out;
+            opacity: 0.7;
+            letter-spacing: 1px;
+            font-family: 'Caveat', cursive;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.98); }
+            50% { opacity: 0.8; transform: scale(1); }
+        }
+
+        /* بصمة بسيطة */
+        .glow-text {
+            font-size: 0.7rem;
+            color: #67EACA;
+            opacity: 0.4;
+            margin-top: 16px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Caveat', cursive;
+        }
+
+        /* دعم الشاشات الصغيرة */
+        @media (max-width: 360px) {
+            .message {
+                font-size: 1.6rem;
+            }
+            
+            .message span {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                width: 52px;
+                height: 52px;
+            }
+        }
+
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <!-- شعار مع glow effect -->
+            <div class="logo-wrapper">
+                <img src="img.png" alt="شعار" class="logo" onerror="this.style.display='none'; document.querySelector('.logo-fallback').style.display='flex';">
+                <div class="logo-fallback">◉</div>
+            </div>
+
+            <!-- الرسالة الرئيسية -->
+            <div class="message-container">
+                <div class="message">
+                    تمت تعبئة
+                    <span>الكرش بنجاح</span>
+                </div>
+            </div>
+
+            <!-- خط فاصل -->
+            <div class="divider"></div>
+
+            <!-- زر الدخول -->
+            <div class="button-wrapper">
+                <button id="loginBtn">
+                    <span class="google-icon"></span>
+                    تسجيل الدخول
+                </button>
+            </div>
+
+            <!-- حالة التحميل -->
+            <div class="status-container">
+                <div class="loading-text">جاري التحميل</div>
+            </div>
+
+            <!-- بصمة بسيطة -->
+            <div class="glow-text">●</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyAlPKj6ecmEHHsipsD8YVD2Aq1hdiO9fpM", 
+            authDomain: "nexivo-a3ae4.firebaseapp.com", 
+            databaseURL: "https://nexivo-a3ae4-default-rtdb.europe-west1.firebasedatabase.app", 
+            projectId: "nexivo-a3ae4", 
+            storageBucket: "nexivo-a3ae4.firebasestorage.app", 
+            messagingSenderId: "780048332158", 
+            appId: "1:780048332158:web:18607b46b66f55b82a6f2f" 
+        };
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            const db = getDatabase(app);
+            const provider = new GoogleAuthProvider();
+
+            const loginBtn = document.getElementById('loginBtn');
+            const loadingText = document.querySelector('.loading-text');
+
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    loginBtn.style.display = 'none';
+                    loadingText.style.display = 'block';
+                    
+                    try {
+                        const snapshot = await get(ref(db, 'users/' + user.uid));
+                        setTimeout(() => {
+                            window.location.href = snapshot.exists() ? "main.html" : "create.html";
+                        }, 500);
+                    } catch (error) {
+                        console.error(error);
+                        loadingText.textContent = "حدث خطأ";
+                        setTimeout(() => {
+                            loginBtn.style.display = 'flex';
+                            loadingText.style.display = 'none';
+                        }, 2000);
+                    }
+                }
+            });
+
+            let isProcessing = false;
+            loginBtn.addEventListener('click', async () => {
+                if (isProcessing) return;
+                isProcessing = true;
+                
+                try {
+                    loginBtn.disabled = true;
+                    await signInWithPopup(auth, provider);
+                } catch (error) {
+                    console.error(error);
+                    loadingText.textContent = "فشل";
+                    loadingText.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        loadingText.style.display = 'none';
+                        loginBtn.disabled = false;
+                        isProcessing = false;
+                    }, 2000);
+                }
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+    </script>
+</body>
+</html>
